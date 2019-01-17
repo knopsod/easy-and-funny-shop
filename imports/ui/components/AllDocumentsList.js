@@ -10,9 +10,9 @@ const handleNav = _id => browserHistory.push(`/documents/${_id}`);
 
 const AllDocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
-    {documents.map(({ _id, title, year, user }) => (
+    {documents.map(({ _id, title, year, user, createdDate }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { `ปี : ${year}, ${title}, ผู้ขาย : ${user.profile.name.first} ${user.profile.name.last}` }
+        { `ปี : ${year}, ${title}, ผู้ขาย : ${user.profile.name.first} ${user.profile.name.last}, สร้าง : ${createdDate}` }
       </ListGroupItem>
     ))}
   </ListGroup> :

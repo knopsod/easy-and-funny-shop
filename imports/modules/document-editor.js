@@ -3,6 +3,8 @@
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
+import moment from 'moment';
+
 import { upsertDocument } from '../api/documents/methods.js';
 import './validation.js';
 
@@ -21,9 +23,11 @@ const handleUpsert = () => {
     upsert._id = doc._id;
     upsert.userId = doc.userId;
     upsert.user = doc.user;
+    upsert.createdDate = doc.createdDate;
   } else {
     upsert.userId = Meteor.userId();
     upsert.user = Meteor.user();
+    upsert.createdDate = moment().toISOString(true).substring(0, 10);
   }
 
   upsertDocument.call(upsert, (error, response) => {
