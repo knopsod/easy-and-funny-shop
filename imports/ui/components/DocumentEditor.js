@@ -24,7 +24,7 @@ export default class DocumentEditor extends React.Component {
           type="text"
           name="title"
           defaultValue={ doc && doc.title }
-          placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน บ้านอยู่เจริญ ต.อยู่สุข ปี 2600 โดย นายจอห์น โด"
+          placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน ปี 2600 บ้านอยู่เจริญ ต.อยู่สุข โดย นายจอห์น โด"
         />
       </FormGroup>
       <FormGroup>
