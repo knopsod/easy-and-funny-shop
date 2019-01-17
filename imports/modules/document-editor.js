@@ -15,11 +15,15 @@ const handleUpsert = () => {
     title: document.querySelector('[name="title"]').value.trim(),
     year: parseInt(document.querySelector('[name="year"]').value.trim(), 10),
     body: document.querySelector('[name="body"]').value.trim(),
-    userId: Meteor.userId(),
   };
 
   if (doc && doc._id){
     upsert._id = doc._id;
+    upsert.userId = doc.userId;
+    upsert.user = doc.user;
+  } else {
+    upsert.userId = Meteor.userId();
+    upsert.user = Meteor.user();
   }
 
   upsertDocument.call(upsert, (error, response) => {

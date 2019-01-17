@@ -33,7 +33,24 @@ Documents.schema = new SimpleSchema({
   userId: {
     type: String,
     label: 'The userId of the document.',
-  }
+  },
+  user: {
+    type: Object,
+    label: 'The user of the document.',
+    optional: true,
+  },
+  'user.emails': { type: Array, optional: true },
+  'user.emails.$': { type: Object, optional: true },
+  'user.emails.$.address': { type: String, optional: true },
+  'user.emails.$.verified': { type: Boolean, optional: true },
+  'user.profile': { type: Object, optional: true },
+  'user.profile.name': { type: Object, optional: true },
+  'user.profile.name.first': { type: String, optional: true },
+  'user.profile.name.last': { type: String, optional: true },
+  'user.profile.lineId': { type: String, optional: true },
+  'user.roles': { type: Array, optional: true },
+  'user.roles.$': { type: String, optional: true },
+  'user._id': { type: String, optional: true },
 });
 
 Documents.attachSchema(Documents.schema);
@@ -43,4 +60,5 @@ Factory.define('document', Documents, {
   year: () => 'Factory Year',
   body: () => 'Factory Body',
   userId: () => 'Factory User ID',
+  user: () => 'Factory User',
 });
