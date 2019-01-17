@@ -2,39 +2,39 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { Factory } from 'meteor/dburles:factory';
 
-const Documents = new Mongo.Collection('Documents');
-export default Documents;
+const Members = new Mongo.Collection('Members');
+export default Members;
 
-Documents.allow({
+Members.allow({
   insert: () => false,
   update: () => false,
   remove: () => false,
 });
 
-Documents.deny({
+Members.deny({
   insert: () => true,
   update: () => true,
   remove: () => true,
 });
 
-Documents.schema = new SimpleSchema({
+Members.schema = new SimpleSchema({
   title: {
-    type: String,
-    label: 'The title of the document.',
+    type: Number,
+    label: 'The title of the member.',
   },
   body: {
     type: String,
-    label: 'The body of the document.',
+    label: 'The body of the member.',
   },
   userId: {
     type: String,
-    label: 'The userId of the document.',
+    label: 'The userId of the member.',
   }
 });
 
-Documents.attachSchema(Documents.schema);
+Members.attachSchema(Members.schema);
 
-Factory.define('document', Documents, {
+Factory.define('member', Members, {
   title: () => 'Factory Title',
   body: () => 'Factory Body',
   userId: () => 'Factory User ID',

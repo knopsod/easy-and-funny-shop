@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import documentEditor from '../../modules/document-editor.js';
+import documentEditor from '../../modules/member-editor.js';
 import { Meteor } from 'meteor/meteor';
 
 export default class DocumentEditor extends React.Component {
@@ -19,21 +19,18 @@ export default class DocumentEditor extends React.Component {
       onSubmit={ event => event.preventDefault() }
     >
       <FormGroup>
-        <ControlLabel>ข้อมูลการขาย</ControlLabel>
+        <ControlLabel>หมายเลข</ControlLabel>
         <FormControl
-          type="text"
+          type="number"
           name="title"
           defaultValue={ doc && doc.title }
-          placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน ปี 2600 บ้านอยู่เจริญ ต.อยู่สุข โดย นายจอห์น โด"
         />
       </FormGroup>
       <FormGroup>
-        <ControlLabel>รายละเอียดเพิ่มเติม</ControlLabel>
+        <ControlLabel>ชื่อ-นามสกุล</ControlLabel>
         <FormControl
-          componentClass="textarea"
           name="body"
           defaultValue={ doc && doc.body }
-          placeholder="ตัวอย่าง : รายชื่อกรรมการ ที่อยู่ เบอร์โทร ระเบียบสำคัญ แนวปฏิบัติ"
         />
       </FormGroup>
       <Button type="submit" bsStyle="success" disabled={ doc && Meteor.userId() !== doc.userId }>
