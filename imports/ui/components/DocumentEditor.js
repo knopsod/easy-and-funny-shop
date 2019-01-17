@@ -25,7 +25,6 @@ export default class DocumentEditor extends React.Component {
           name="title"
           defaultValue={ doc && doc.title }
           placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน บ้านอยู่เจริญ ต.อยู่สุข ปี 2600 โดย นายจอห์น โด"
-          readOnly={ doc && Meteor.userId() !== doc.userId}
         />
       </FormGroup>
       <FormGroup>
@@ -35,7 +34,6 @@ export default class DocumentEditor extends React.Component {
           name="body"
           defaultValue={ doc && doc.body }
           placeholder="ตัวอย่าง : รายชื่อกรรมการ ที่อยู่ เบอร์โทร ระเบียบสำคัญ แนวปฏิบัติ"
-          readOnly={ doc && Meteor.userId() !== doc.userId }
         />
       </FormGroup>
       <Button type="submit" bsStyle="success" disabled={ doc && Meteor.userId() !== doc.userId }>
