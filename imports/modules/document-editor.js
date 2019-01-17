@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 
+import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { upsertDocument } from '../api/documents/methods.js';
@@ -15,7 +16,11 @@ const handleUpsert = () => {
     body: document.querySelector('[name="body"]').value.trim(),
   };
 
-  if (doc && doc._id) upsert._id = doc._id;
+  if (doc && doc._id){
+    upsert._id = doc._id
+  } else {
+    upsert.userId = Meteor.userId();
+  };
 
   upsertDocument.call(upsert, (error, response) => {
     if (error) {

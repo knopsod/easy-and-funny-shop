@@ -8,7 +8,7 @@ import container from '../../modules/container';
 
 const handleNav = _id => browserHistory.push(`/documents/${_id}`);
 
-const DocumentsList = ({ documents }) => (
+const AllDocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
     {documents.map(({ _id, title }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
@@ -19,14 +19,14 @@ const DocumentsList = ({ documents }) => (
   <Alert bsStyle="warning">No documents yet.</Alert>
 );
 
-DocumentsList.propTypes = {
+AllDocumentsList.propTypes = {
   documents: PropTypes.array,
 };
 
 export default container((props, onData) => {
   const subscription = Meteor.subscribe('documents.list');
   if (subscription.ready()) {
-    const documents = Documents.find({ userId: Meteor.userId() }).fetch();
+    const documents = Documents.find().fetch();
     onData(null, { documents });
   }
-}, DocumentsList);
+}, AllDocumentsList);

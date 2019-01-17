@@ -33,8 +33,8 @@ const ViewDocument = ({ doc }) => {
         <h4 className="pull-left">{ doc && doc.title }</h4>
         <ButtonToolbar className="pull-right">
           <ButtonGroup bsSize="small">
-            <Button onClick={ () => handleEdit(doc._id) }>Edit</Button>
-            <Button onClick={ () => handleRemove(doc._id) } className="text-danger">Delete</Button>
+            { doc.userId === Meteor.userId() ? <Button onClick={ () => handleEdit(doc._id) }>แก้ไข</Button> : undefined }
+            { false ? <Button onClick={ () => handleRemove(doc._id) } className="text-danger">ลบ</Button> : undefined }
           </ButtonGroup>
         </ButtonToolbar>
       </div>

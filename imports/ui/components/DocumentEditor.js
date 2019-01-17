@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import documentEditor from '../../modules/document-editor.js';
+import { Meteor } from 'meteor/meteor';
 
 export default class DocumentEditor extends React.Component {
   componentDidMount() {
@@ -18,25 +19,27 @@ export default class DocumentEditor extends React.Component {
       onSubmit={ event => event.preventDefault() }
     >
       <FormGroup>
-        <ControlLabel>Title</ControlLabel>
+        <ControlLabel>ข้อมูลปีการขาย</ControlLabel>
         <FormControl
           type="text"
           name="title"
           defaultValue={ doc && doc.title }
-          placeholder="Oh, The Places You'll Go!"
+          placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน บ้านอยู่เจริญ ต.อยู่สุข ปี 2600 โดย นายจอห์น โด"
+          readOnly={ doc && Meteor.userId() !== doc.userId}
         />
       </FormGroup>
       <FormGroup>
-        <ControlLabel>Body</ControlLabel>
+        <ControlLabel>รายละเอียดเพิ่มเติม</ControlLabel>
         <FormControl
           componentClass="textarea"
           name="body"
           defaultValue={ doc && doc.body }
-          placeholder="Congratulations! Today is your day. You're off to Great Places! You're off and away!"
+          placeholder="ตัวอย่าง : รายชื่อกรรมการ ที่อยู่ เบอร์โทร ระเบียบสำคัญ แนวปฏิบัติ"
+          readOnly={ doc && Meteor.userId() !== doc.userId }
         />
       </FormGroup>
-      <Button type="submit" bsStyle="success">
-        { doc && doc._id ? 'Save Changes' : 'Add Document' }
+      <Button type="submit" bsStyle="success" disabled={ doc && Meteor.userId() !== doc.userId }>
+        { doc && doc._id ? 'บันทึกปีการขาย' : 'สร้างปีการขายใหม่' }
       </Button>
     </form>);
   }

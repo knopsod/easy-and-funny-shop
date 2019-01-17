@@ -8,7 +8,7 @@ import container from '../../modules/container';
 
 const EditDocument = ({ doc }) => (doc ? (
   <div className="EditDocument">
-    <h4 className="page-header">Editing "{ doc.title }"</h4>
+    <h4 className="page-header">แก้ไข "{ doc.title }"</h4>
     <DocumentEditor doc={ doc }/>
   </div>
 ) : <NotFound />);
