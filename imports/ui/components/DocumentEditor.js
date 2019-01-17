@@ -19,7 +19,7 @@ export default class DocumentEditor extends React.Component {
       onSubmit={ event => event.preventDefault() }
     >
       <FormGroup>
-        <ControlLabel>ข้อมูลปีการขาย</ControlLabel>
+        <ControlLabel>ข้อมูลการขาย</ControlLabel>
         <FormControl
           type="text"
           name="title"
@@ -37,7 +37,7 @@ export default class DocumentEditor extends React.Component {
         />
       </FormGroup>
       <Button type="submit" bsStyle="success" disabled={ doc && Meteor.userId() !== doc.userId }>
-        { doc && doc._id ? 'บันทึกปีการขาย' : 'สร้างปีการขายใหม่' }
+        { doc && doc._id ? 'บันทึกการเป็นผู้ขาย' : 'สร้างการเป็นผู้ขายใหม่' }
       </Button>
     </form>);
   }
