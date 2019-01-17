@@ -14,13 +14,12 @@ const handleUpsert = () => {
   const upsert = {
     title: document.querySelector('[name="title"]').value.trim(),
     body: document.querySelector('[name="body"]').value.trim(),
+    userId: Meteor.userId(),
   };
 
   if (doc && doc._id){
-    upsert._id = doc._id
-  } else {
-    upsert.userId = Meteor.userId();
-  };
+    upsert._id = doc._id;
+  }
 
   upsertDocument.call(upsert, (error, response) => {
     if (error) {
