@@ -19,12 +19,20 @@ export default class DocumentEditor extends React.Component {
       onSubmit={ event => event.preventDefault() }
     >
       <FormGroup>
+        <ControlLabel>ปี (พ.ศ.)</ControlLabel>
+        <FormControl
+          type="number"
+          name="year"
+          defaultValue={ doc && doc.year }
+        />
+      </FormGroup>
+      <FormGroup>
         <ControlLabel>ข้อมูลการขาย</ControlLabel>
         <FormControl
           type="text"
           name="title"
           defaultValue={ doc && doc.title }
-          placeholder="ตัวอย่าง : การขายสินค้าร้านค้าชุมชน ปี 2600 บ้านอยู่เจริญ ต.อยู่สุข โดย นายจอห์น โด"
+          placeholder="ตัวอย่าง : ร้านค้าชุมชน หมู่ 1 โดย (ชื่อผู้ขาย)"
         />
       </FormGroup>
       <FormGroup>

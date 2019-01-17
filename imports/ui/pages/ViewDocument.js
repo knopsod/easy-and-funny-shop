@@ -30,7 +30,7 @@ const ViewDocument = ({ doc }) => {
   return doc ? (
     <div className="ViewDocument">
       <div className="page-header clearfix">
-        <h4 className="pull-left">{ doc && doc.title }</h4>
+        <h4 className="pull-left">{ doc && `ปี ${doc.year} : ${doc.title}` }</h4>
         <ButtonToolbar className="pull-right">
           <ButtonGroup bsSize="small">
             { doc.userId === Meteor.userId() ? <Button onClick={ () => handleEdit(doc._id) }>แก้ไข</Button> : undefined }

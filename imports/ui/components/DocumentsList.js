@@ -10,9 +10,9 @@ const handleNav = _id => browserHistory.push(`/documents/${_id}`);
 
 const DocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
-    {documents.map(({ _id, title }) => (
+    {documents.map(({ _id, title, year }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { title }
+        { `ปี ${year} : ${title}` }
       </ListGroupItem>
     ))}
   </ListGroup> :
@@ -26,7 +26,7 @@ DocumentsList.propTypes = {
 export default container((props, onData) => {
   const subscription = Meteor.subscribe('documents.list');
   if (subscription.ready()) {
-    const documents = Documents.find({ userId: Meteor.userId() }).fetch();
+    const documents = Documents.find({ userId: Meteor.userId() }, { sort: { year: -1 } }).fetch();
     onData(null, { documents });
   }
 }, DocumentsList);

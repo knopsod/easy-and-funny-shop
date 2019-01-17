@@ -13,6 +13,7 @@ const handleUpsert = () => {
   const confirmation = doc && doc._id ? 'Document updated!' : 'Document added!';
   const upsert = {
     title: document.querySelector('[name="title"]').value.trim(),
+    year: parseInt(document.querySelector('[name="year"]').value.trim(), 10),
     body: document.querySelector('[name="body"]').value.trim(),
     userId: Meteor.userId(),
   };
