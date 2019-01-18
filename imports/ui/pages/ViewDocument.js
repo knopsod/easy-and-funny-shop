@@ -102,7 +102,7 @@ export default container((props, onData) => {
     console.log(now);
     console.log(doc);
     members.forEach(function(element){
-      element.solds = [];
+      element.solds = []; // filter of solds in here
     });
     console.log(members);
     console.log(solds);
