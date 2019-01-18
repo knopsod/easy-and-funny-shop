@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonToolbar, ButtonGroup, Button, ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
+import moment from 'moment';
 import Documents from '../../api/documents/documents';
+import Members from '../../api/members/members';
+import Solds from '../../api/solds/solds';
 import { removeDocument } from '../../api/documents/methods';
+import { upsertSold } from '../../api/solds/methods';
 import NotFound from './NotFound';
 import container from '../../modules/container';
 
@@ -26,7 +30,7 @@ const handleRemove = (_id) => {
   }
 };
 
-const ViewDocument = ({ doc }) => {
+const ViewDocument = ({ doc, members }) => {
   return doc ? (
     <div className="ViewDocument">
       <div className="page-header clearfix">
@@ -39,20 +43,48 @@ const ViewDocument = ({ doc }) => {
         </ButtonToolbar>
       </div>
       { doc && doc.body }
+      <br />
+      <br />
+      {
+        members.length > 0 ? <ListGroup className="SoldsList">
+          {members.map(({ _id, title, body }) => (
+            <ListGroupItem key={ _id }>
+              { `${title} ${body}` }
+            </ListGroupItem>
+          ))}
+        </ListGroup> :
+        <Alert bsStyle="warning">No members yet.</Alert>
+      }
     </div>
   ) : <NotFound />;
 };
 
 ViewDocument.propTypes = {
   doc: PropTypes.object,
+  members: PropTypes.array,
 };
 
 export default container((props, onData) => {
   const documentId = props.params._id;
   const subscription = Meteor.subscribe('documents.view', documentId);
+  const membersSubscription = Meteor.subscribe('members.list');
+  const soldsSubscription = Meteor.subscribe('solds.list');
 
-  if (subscription.ready()) {
+  const now = moment().toISOString(true).substring(0, 10);
+  
+  if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {
     const doc = Documents.findOne(documentId);
-    onData(null, { doc });
+    const members = Members.find({ userId: doc.userId }, { sort: { title: 1 } }).fetch();
+    const solds = Solds.find({ docId: doc._id, createdDate: now }).fetch();
+    
+    console.log(now);
+    console.log(doc);
+    members.forEach(function(element){
+      element.solds = [];
+    });
+    console.log(members);
+    console.log(solds);
+    
+    onData(null, { doc, members });
   }
 }, ViewDocument);
