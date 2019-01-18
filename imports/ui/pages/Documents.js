@@ -13,7 +13,7 @@ const Documents = () => (
             <Button
               bsStyle="success"
               className="pull-right"
-            >สร้างการเป็นผู้ขายใหม่</Button>
+            >สร้างผู้ขายใหม่</Button>
           </Link>
         </div>
         <DocumentsList />

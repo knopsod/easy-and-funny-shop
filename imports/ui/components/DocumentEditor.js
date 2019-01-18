@@ -27,7 +27,7 @@ export default class DocumentEditor extends React.Component {
         />
       </FormGroup>
       <FormGroup>
-        <ControlLabel>ข้อมูลการขาย</ControlLabel>
+        <ControlLabel>ชื่อร้าน-ที่อยู่-ชื่อผู้ขาย</ControlLabel>
         <FormControl
           type="text"
           name="title"
