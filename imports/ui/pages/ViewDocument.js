@@ -9,7 +9,7 @@ import Documents from '../../api/documents/documents';
 import Members from '../../api/members/members';
 import Solds from '../../api/solds/solds';
 import { removeDocument } from '../../api/documents/methods';
-import { upsertSold } from '../../api/solds/methods';
+import { upsertSold, removeSold } from '../../api/solds/methods';
 import NotFound from './NotFound';
 import container from '../../modules/container';
 
@@ -30,6 +30,27 @@ const handleRemove = (_id) => {
   }
 };
 
+const sell = (docId, memberId) => {
+  console.log(docId, memberId);
+  
+  const sold = {
+    docId,
+    memberId,
+    createdAt: moment().toISOString(true).substring(0, 19),
+    createdDate: moment().toISOString(true).substring(0, 10),
+    amount: 10,
+    cancelled: false,
+  };
+
+  upsertSold.call(sold, (error) => {
+    if (error) {
+      Bert.alert(error.reason, 'danger');
+    } else {
+      Bert.alert('Added', 'success');
+    }
+  });
+}
+
 const ViewDocument = ({ doc, members }) => {
   return doc ? (
     <div className="ViewDocument">
@@ -48,7 +69,8 @@ const ViewDocument = ({ doc, members }) => {
       {
         members.length > 0 ? <ListGroup className="SoldsList">
           {members.map(({ _id, title, body }) => (
-            <ListGroupItem key={ _id }>
+            <ListGroupItem key={ _id } 
+              onClick={() => sell(doc._id, _id)}>
               { `${title} ${body}` }
             </ListGroupItem>
           ))}

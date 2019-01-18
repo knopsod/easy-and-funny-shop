@@ -7,8 +7,6 @@ export const upsertSold = new ValidatedMethod({
   name: 'solds.upsert',
   validate: new SimpleSchema({
     _id: { type: String, optional: true },
-    title: { type: Number, optional: true },
-    body: { type: String, optional: true },
     docId: { type: String, optional: true },
     memberId: { type: String, optional: true },
     createdAt: { type: String, optional: true },
