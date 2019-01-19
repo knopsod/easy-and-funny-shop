@@ -30,7 +30,7 @@ Solds.schema = new SimpleSchema({
     type: String,
     label: 'The created at the sold.',
   },
-  createdDate: {
+  soldDate: {
     type: String,
     label: 'The created date the sold.',
   },
@@ -50,7 +50,7 @@ Factory.define('sold', Solds, {
   docId: () => 'Factory Doc ID',
   memberId: () => 'Factory Member ID',
   createdAt: () => 'Factory Created At',
-  createdDate: () => 'Factory Created Date',
+  soldDate: () => 'Factory Created Date',
   amount: () => 'Factory Amount',
   cancelled: () => 'Factory Cancelled',
 });

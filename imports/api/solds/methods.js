@@ -10,7 +10,7 @@ export const upsertSold = new ValidatedMethod({
     docId: { type: String, optional: true },
     memberId: { type: String, optional: true },
     createdAt: { type: String, optional: true },
-    createdDate: { type: String, optional: true },
+    soldDate: { type: String, optional: true },
     amount: { type: Number, optional: true },
     cancelled: { type: Boolean, optional: true },
   }).validator(),
