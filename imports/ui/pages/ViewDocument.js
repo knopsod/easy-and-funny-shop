@@ -66,7 +66,9 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
         members.length > 0 ? <Table>
           <tbody>
           {members.map(({ _id, title, body, solds }) => (
-            <MemberSoldItem key={_id} title={title} body={body} solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} />
+            <MemberSoldItem key={_id} title={title} body={body} 
+              solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} 
+              editable={doc.userId === Meteor.userId()} />
           ))}
             <tr>
               <td colSpan={2} />
@@ -97,7 +99,6 @@ export default container((props, onData) => {
   Session.setDefault('soldDate', moment().toISOString(true).substring(0, 10));
 
   const soldDate = Session.get('soldDate');
-  console.log(soldDate);
   let sum = 0;
   
   if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {

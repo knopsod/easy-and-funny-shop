@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Bert } from 'meteor/themeteorchef:bert';
 import moment from 'moment';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button, FormGroup, FormControl } from 'react-bootstrap';
 import { upsertSold, removeSold } from '../../api/solds/methods';
 
 class MemberSoldItem extends Component {
@@ -14,6 +14,7 @@ class MemberSoldItem extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   renderSumText(solds) {
@@ -77,16 +78,34 @@ class MemberSoldItem extends Component {
     this.setState({ amount: event.target.value });
   }
 
+  onSubmit(event) {
+    event.preventDefault();
+    const { memberId, docId, soldDate } = this.props;
+    this.saveSold(memberId, docId, soldDate);
+  }
+
   render() {
-    const { title, body, solds, memberId, docId, soldDate } = this.props;
+    const { title, body, solds, memberId, docId, soldDate, editable } = this.props;
     const { amount } = this.state;
     return (
       <tr>
         <td style={{ width: 80, verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
-        <td style={{ width: 80 }}><FormControl type="number" name="amount" onChange={this.onChange} value={amount} /></td>
-        <td><Button bsStyle="success" onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button></td>
+        <td style={{ width: 80 }}>
+          
+          { editable ? <form onSubmit={this.onSubmit}><FormControl type="number" name="amount" value={amount} 
+            onChange={this.onChange} /></form> : undefined }
+          
+        </td>
+        <td>
+          { editable ? <Button bsStyle="success" 
+            onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button> : undefined }
+        </td>
         <td style={{ verticalAlign: 'middle' }}>{this.renderSumText(solds)}</td>
-        <td><Button bsStyle="danger" onClick={() => this.cancelSold(solds)} disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button></td>
+        <td>
+          { editable ? <Button bsStyle="danger" 
+            onClick={() => this.cancelSold(solds)} 
+            disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button> : undefined }
+        </td>
       </tr>
     );
   }
@@ -99,6 +118,7 @@ MemberSoldItem.propTypes = {
   memberId: PropTypes.string,
   docId: PropTypes.string,
   soldDate: PropTypes.string,
+  editable: PropTypes.bool,
 };
 
 export default MemberSoldItem;
