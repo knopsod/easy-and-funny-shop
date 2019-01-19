@@ -85,26 +85,26 @@ class MemberSoldItem extends Component {
   }
 
   render() {
-    const { title, body, solds, memberId, docId, soldDate, editable } = this.props;
+    const { title, body, solds, memberId, docId, soldDate } = this.props;
     const { amount } = this.state;
     return (
       <tr>
         <td style={{ width: 80, verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
         <td style={{ width: 80 }}>
-          
-          { editable ? <form onSubmit={this.onSubmit}><FormControl type="number" name="amount" value={amount} 
-            onChange={this.onChange} /></form> : undefined }
-          
+          <form onSubmit={this.onSubmit}>
+            <FormControl type="number" name="amount" value={amount} 
+              onChange={this.onChange} />
+          </form>
         </td>
         <td>
-          { editable ? <Button bsStyle="success" 
-            onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button> : undefined }
+          <Button bsStyle="success" 
+            onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button>
         </td>
         <td style={{ verticalAlign: 'middle' }}>{this.renderSumText(solds)}</td>
         <td>
-          { editable ? <Button bsStyle="danger" 
+          <Button bsStyle="danger" 
             onClick={() => this.cancelSold(solds)} 
-            disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button> : undefined }
+            disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button>
         </td>
       </tr>
     );
@@ -118,7 +118,6 @@ MemberSoldItem.propTypes = {
   memberId: PropTypes.string,
   docId: PropTypes.string,
   soldDate: PropTypes.string,
-  editable: PropTypes.bool,
 };
 
 export default MemberSoldItem;

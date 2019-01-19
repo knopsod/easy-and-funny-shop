@@ -15,6 +15,7 @@ import { upsertSold, removeSold } from '../../api/solds/methods';
 import NotFound from './NotFound';
 import container from '../../modules/container';
 import MemberSoldItem from '../components/MemberSoldItem';
+import MemberSoldReadOnlyItem from '../components/MemberSoldReadOnlyItem';
 
 const handleEdit = (_id) => {
   browserHistory.push(`/documents/${_id}/edit`);
@@ -65,16 +66,24 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
       {
         members.length > 0 ? <Table>
           <tbody>
-          {members.map(({ _id, title, body, solds }) => (
-            <MemberSoldItem key={_id} title={title} body={body} 
-              solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} 
-              editable={doc.userId === Meteor.userId()} />
-          ))}
-            <tr>
-              <td colSpan={2} />
-              <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
-              <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
-            </tr>
+          {members.map(({ _id, title, body, solds }) => {
+            return doc.userId === Meteor.userId() ?
+              <MemberSoldItem key={_id} title={title} body={body} 
+                solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} /> :
+              <MemberSoldReadOnlyItem key={_id} title={title} body={body} 
+                solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} />
+          })}
+            { doc.userId === Meteor.userId() ?
+              <tr>
+                <td colSpan={2} />
+                <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
+                <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
+              </tr> :
+              <tr>
+                <td style={{ verticalAlign: 'middle', width: 80 }}><h2>รวม</h2></td>
+                <td style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
+              </tr>
+            }
           </tbody>
         </Table> :
         <Alert bsStyle="warning">No members yet.</Alert>
