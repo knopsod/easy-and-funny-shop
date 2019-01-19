@@ -90,7 +90,7 @@ class MemberSoldItem extends Component {
     return (
       <tr>
         <td style={{ width: 80, verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
-        <td style={{ width: 80 }}>
+        <td style={{ width: 100 }}>
           <form onSubmit={this.onSubmit}>
             <FormControl type="number" name="amount" value={amount} 
               onChange={this.onChange} />
