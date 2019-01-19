@@ -8,12 +8,12 @@ const Documents = () => (
     <Row>
       <Col xs={ 12 }>
         <div className="page-header clearfix">
-          <h4 className="pull-left">ข้อมูลการเป็นผู้ขาย</h4>
+          <h4 className="pull-left">รายการงานขาย</h4>
           <Link to="/documents/new">
             <Button
               bsStyle="success"
               className="pull-right"
-            >สร้างผู้ขายใหม่</Button>
+            >สร้างงานขายใหม่</Button>
           </Link>
         </div>
         <DocumentsList />
