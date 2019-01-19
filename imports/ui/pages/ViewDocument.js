@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonToolbar, ButtonGroup, Button, ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
+import { ButtonToolbar, ButtonGroup, Button, ListGroup, ListGroupItem, Alert, Grid, Row, Col, FormControl, Table } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -67,14 +67,18 @@ const ViewDocument = ({ doc, members }) => {
       <br />
       <br />
       {
-        members.length > 0 ? <ListGroup className="SoldsList">
+        members.length > 0 ? <Table>
+          <tbody>
           {members.map(({ _id, title, body }) => (
-            <ListGroupItem key={ _id } 
+            <tr key={ _id }
               onClick={() => sell(doc._id, _id)}>
-              { `${title} ${body}` }
-            </ListGroupItem>
+              <td style={{ width: 80, verticalAlign: "middle" }}>{ `${title}. ${body}` }</td>
+              <td style={{ width: 64 }}><FormControl type="number" /></td>
+              <td><Button bsStyle="success">+</Button></td>
+            </tr>
           ))}
-        </ListGroup> :
+          </tbody>
+        </Table> :
         <Alert bsStyle="warning">No members yet.</Alert>
       }
     </div>
@@ -97,7 +101,7 @@ export default container((props, onData) => {
   if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {
     const doc = Documents.findOne(documentId);
     const members = Members.find({ userId: doc.userId }, { sort: { title: 1 } }).fetch();
-    const solds = Solds.find({ docId: doc._id, createdDate: now }).fetch();
+    const solds = Solds.find({ docId: doc._id, createdDate: now }, { sort: { createdAt: 1 } }).fetch();
     
     console.log(now);
     console.log(doc);
