@@ -89,8 +89,8 @@ class MemberSoldItem extends Component {
     const { amount } = this.state;
     return (
       <tr>
-        <td style={{ width: 80, verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
-        <td style={{ width: 100 }}>
+        <td style={{ verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
+        <td>
           <form onSubmit={this.onSubmit}>
             <FormControl type="number" name="amount" value={amount} 
               onChange={this.onChange} />

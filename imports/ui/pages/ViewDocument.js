@@ -74,18 +74,31 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
               <MemberSoldReadOnlyItem key={_id} title={title} body={body} 
                 solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} />
           })}
+          </tbody>
+          <tfoot>
             { doc.userId === Meteor.userId() ?
               <tr>
-                <td colSpan={2} />
+                <td colSpan={2}/>
                 <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
-                <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sum } .- ({soldDate})</h2></td>
+                <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
               </tr> :
               <tr>
-                <td style={{ verticalAlign: 'middle', width: 80 }}><h2>รวม</h2></td>
-                <td style={{ verticalAlign: 'middle' }}><h2>{ sum } .- ({soldDate})</h2></td>
+                <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
+                <td style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
               </tr>
             }
-          </tbody>
+            { doc.userId === Meteor.userId() ?
+              <tr>
+                <td colSpan={2}/>
+                <td style={{ verticalAlign: 'middle' }}>ปี-เดือน-วัน</td>
+                <td colSpan={2} style={{ verticalAlign: 'middle' }}>{ soldDate }</td>
+              </tr> :
+              <tr>
+                <td style={{ verticalAlign: 'middle' }}>ปี-เดือน-วัน</td>
+                <td style={{ verticalAlign: 'middle' }}>{ soldDate }</td>
+              </tr>
+            }
+          </tfoot>
         </Table> :
         <Alert bsStyle="warning">No members yet.</Alert>
       }
