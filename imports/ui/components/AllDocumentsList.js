@@ -12,7 +12,7 @@ const AllDocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
     {documents.map(({ _id, title, year, user, createdDate }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { `ปี : ${year}, ${title}, สร้างโดย : ${user.profile.name.first} ${user.profile.name.last}, เมื่อ : ${createdDate}` }
+        { `ปี : ${year}, ${title}` }<small className="pull-right">{ `สร้างโดย : ${user.profile.name.first} ${user.profile.name.last}, เมื่อ : ${createdDate}` }</small>
       </ListGroupItem>
     ))}
   </ListGroup> :

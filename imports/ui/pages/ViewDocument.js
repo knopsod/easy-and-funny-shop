@@ -56,7 +56,8 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
           </ButtonGroup>
         </ButtonToolbar>
       </div>
-      { doc && doc.body }
+      <p>{ doc && doc.body }</p>
+      <small>{ doc && `สร้างโดย : ${doc.user.profile.name.first} ${doc.user.profile.name.last}, เมื่อ : ${doc.createdDate}` }</small>
       <br />
       <br />
       <FormGroup>
