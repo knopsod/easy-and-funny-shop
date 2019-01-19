@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Alert, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import Members from '../../api/members/members';
 import container from '../../modules/container';
+import MemberInlineEditor from '../components/MemberInlineEditor';
 
 const handleNav = _id => browserHistory.push(`/members/${_id}`);
 
 const MembersList = ({ members }) => (
-  members.length > 0 ? <ListGroup className="MembersList">
-    {members.map(({ _id, title, body }) => (
-      <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { `${title}. ${body}` }
-      </ListGroupItem>
-    ))}
-  </ListGroup> :
+  members.length > 0 ? <Table>
+    <tbody>
+      { members.map(({_id, title, body, userId}) => 
+        (<MemberInlineEditor key={_id} _id={_id} title={title} body={body} userId={userId} />)
+      ) }
+    </tbody>
+  </Table> :
   <Alert bsStyle="warning">No members yet.</Alert>
 );
 
