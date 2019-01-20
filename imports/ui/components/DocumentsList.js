@@ -12,7 +12,7 @@ const DocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
     {documents.map(({ _id, title, year }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { `ปี ${year} : ${title}` }
+        { `ปี : ${year}, ${title}` }
       </ListGroupItem>
     ))}
   </ListGroup> :
