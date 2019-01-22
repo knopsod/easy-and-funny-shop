@@ -46,7 +46,7 @@ class MemberSoldItem extends Component {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Added', 'success');
+        Bert.alert('Sold added', 'success');
         this.setState({ amount: '' });
       }
     });
@@ -69,7 +69,7 @@ class MemberSoldItem extends Component {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Added', 'success');
+        Bert.alert('Sold cancelled', 'success');
       }
     });
   }
