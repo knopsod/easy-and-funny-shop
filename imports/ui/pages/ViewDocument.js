@@ -78,7 +78,6 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
           <tfoot>
             { doc.userId === Meteor.userId() ?
               <tr>
-                <td colSpan={2}/>
                 <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
                 <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sum } .-</h2></td>
               </tr> :
@@ -89,7 +88,6 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
             }
             { doc.userId === Meteor.userId() ?
               <tr>
-                <td colSpan={2}/>
                 <td style={{ verticalAlign: 'middle' }}>ปี-เดือน-วัน</td>
                 <td colSpan={2} style={{ verticalAlign: 'middle' }}>{ soldDate }</td>
               </tr> :

@@ -91,18 +91,17 @@ class MemberSoldItem extends Component {
       <tr>
         <td style={{ verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
         <td>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit} style={{ marginBottom: 12 }}>
             <FormControl type="number" name="amount" value={amount} 
               onChange={this.onChange} />
           </form>
+          {this.renderSumText(solds)}
         </td>
         <td>
-          <Button bsStyle="success" 
+          <Button bsStyle="success" block
             onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button>
-        </td>
-        <td style={{ verticalAlign: 'middle' }}>{this.renderSumText(solds)}</td>
-        <td>
-          <Button bsStyle="danger" 
+          
+          <Button bsStyle="danger" block style={{ marginTop: 5 }}
             onClick={() => this.cancelSold(solds)} 
             disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button>
         </td>
