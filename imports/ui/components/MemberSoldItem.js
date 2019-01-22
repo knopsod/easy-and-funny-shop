@@ -39,7 +39,7 @@ class MemberSoldItem extends Component {
       createdAt: moment().toISOString(true).substring(0, 19),
       soldDate,
       amount: parseInt(amount, 10),
-      cancelled: soldDate < moment().toISOString(true).substring(0, 10),
+      cancelled: false,
     };
 
     upsertSold.call(sold, (error) => {
@@ -100,8 +100,8 @@ class MemberSoldItem extends Component {
         </td>
         <td>
           <Button bsStyle="success" block
-            onClick={() => this.saveSold(memberId, docId, soldDate)} disabled={!amount}>+</Button>
-          
+            onClick={() => this.saveSold(memberId, docId, soldDate)} 
+            disabled={!amount || now > soldDate}>+</Button>
           <Button bsStyle="danger" block style={{ marginTop: 5 }}
             onClick={() => this.cancelSold(solds)} 
             disabled={!(solds.filter(sold => !sold.cancelled).length) || now > soldDate}>-</Button>
