@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import { FormControl, Button } from 'react-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -56,9 +57,13 @@ class MemberInlineEditor extends Component {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Added', 'success');
+        Bert.alert('Member updated', 'success');
       }
     });
+  }
+
+  handleNav(_id){
+    browserHistory.push(`/members/${_id}`);
   }
 
   render() {
@@ -77,7 +82,8 @@ class MemberInlineEditor extends Component {
               onChange={this.onChange} />
           </form>
         </td>
-        <td><Button bsStyle="primary" onClick={this.onClick}>บันทึก</Button></td>
+        <td><Button bsStyle="success" block onClick={this.onClick}>บันทึก</Button></td>
+        <td><Button bsStyle="primary" block onClick={() => this.handleNav(_id)}>ยอดซื้อ</Button></td>
       </tr>
     )
   }

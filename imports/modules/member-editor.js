@@ -10,7 +10,7 @@ let component;
 
 const handleUpsert = () => {
   const { doc } = component.props;
-  const confirmation = doc && doc._id ? 'Document updated!' : 'Document added!';
+  const confirmation = doc && doc._id ? 'Member updated!' : 'Member added!';
   const upsert = {
     title: parseInt(document.querySelector('[name="title"]').value.trim(), 10),
     body: document.querySelector('[name="body"]').value.trim(),

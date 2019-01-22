@@ -39,7 +39,7 @@ class MemberSoldItem extends Component {
       createdAt: moment().toISOString(true).substring(0, 19),
       soldDate,
       amount: parseInt(amount, 10),
-      cancelled: false,
+      cancelled: soldDate < moment().toISOString(true).substring(0, 10),
     };
 
     upsertSold.call(sold, (error) => {
@@ -87,6 +87,7 @@ class MemberSoldItem extends Component {
   render() {
     const { title, body, solds, memberId, docId, soldDate } = this.props;
     const { amount } = this.state;
+    const now = moment().toISOString(true).substring(0, 10);
     return (
       <tr>
         <td style={{ verticalAlign: 'middle' }}><h4>{ `${title}. ${body}` }</h4></td>
@@ -103,7 +104,7 @@ class MemberSoldItem extends Component {
           
           <Button bsStyle="danger" block style={{ marginTop: 5 }}
             onClick={() => this.cancelSold(solds)} 
-            disabled={!(solds.filter(sold => !sold.cancelled).length)}>-</Button>
+            disabled={!(solds.filter(sold => !sold.cancelled).length) || now > soldDate}>-</Button>
         </td>
       </tr>
     );
