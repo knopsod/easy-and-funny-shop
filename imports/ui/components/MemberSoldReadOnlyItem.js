@@ -21,7 +21,7 @@ class MemberSoldReadOnlyItem extends Component {
     const { title, body, solds } = this.props;
     return (
       <tr>
-        <td style={{ verticalAlign: 'middle' }}>{ `${title}. ${body}` }</td>
+        <td style={{ verticalAlign: 'middle' }}><h4>{ `${title}. ${body}` }</h4></td>
         <td style={{ verticalAlign: 'middle' }}>{this.renderSumText(solds)}</td>
       </tr>
     );
