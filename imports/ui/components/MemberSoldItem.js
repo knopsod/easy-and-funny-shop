@@ -94,7 +94,7 @@ class MemberSoldItem extends Component {
         <td>
           <form onSubmit={this.onSubmit} style={{ marginBottom: 12 }}>
             <FormControl type="number" name="amount" value={amount} 
-              onChange={this.onChange} />
+              onChange={this.onChange} disabled={now > soldDate} />
           </form>
           {this.renderSumText(solds)}
         </td>
