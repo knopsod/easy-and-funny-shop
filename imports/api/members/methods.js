@@ -10,6 +10,7 @@ export const upsertMember = new ValidatedMethod({
     title: { type: Number, optional: true },
     body: { type: String, optional: true },
     userId: { type: String, optional: true },
+    shown: { type: Boolean, optional: true },
   }).validator(),
   run(member) {
     return Members.upsert({ _id: member._id }, { $set: member });

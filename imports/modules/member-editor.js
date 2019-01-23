@@ -15,6 +15,7 @@ const handleUpsert = () => {
     title: parseInt(document.querySelector('[name="title"]').value.trim(), 10),
     body: document.querySelector('[name="body"]').value.trim(),
     userId: Meteor.userId(),
+    shown: document.querySelector('[name="shown"]').checked,
   };
 
   if (doc && doc._id){

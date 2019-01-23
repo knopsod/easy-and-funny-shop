@@ -52,6 +52,7 @@ Documents.schema = new SimpleSchema({
   'user.roles.$': { type: String, optional: true },
   'user._id': { type: String, optional: true },
   createdDate: { type: String, optional: true },
+  shown: { type: Boolean, optional: true },
 });
 
 Documents.attachSchema(Documents.schema);
@@ -63,4 +64,5 @@ Factory.define('document', Documents, {
   userId: () => 'Factory User ID',
   user: () => 'Factory User',
   createdDate: () => 'Factory Created Date',
+  shown: () => 'Factory Shown',
 });

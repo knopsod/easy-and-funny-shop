@@ -26,7 +26,7 @@ AllDocumentsList.propTypes = {
 export default container((props, onData) => {
   const subscription = Meteor.subscribe('documents.list');
   if (subscription.ready()) {
-    const documents = Documents.find({}, { sort: { year: -1 } }).fetch();
+    const documents = Documents.find({ shown: true }, { sort: { year: -1 } }).fetch();
     onData(null, { documents });
   }
 }, AllDocumentsList);

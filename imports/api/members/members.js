@@ -29,6 +29,10 @@ Members.schema = new SimpleSchema({
   userId: {
     type: String,
     label: 'The userId of the member.',
+  },
+  shown: {
+    type: Boolean,
+    label: 'The shown of the member.',
   }
 });
 
@@ -38,4 +42,5 @@ Factory.define('member', Members, {
   title: () => 'Factory Title',
   body: () => 'Factory Body',
   userId: () => 'Factory User ID',
+  shown: () => 'Factory Shown',
 });

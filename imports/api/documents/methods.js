@@ -25,6 +25,7 @@ export const upsertDocument = new ValidatedMethod({
     'user.roles.$': { type: String, optional: true },
     'user._id': { type: String, optional: true },
     createdDate: { type: String, optional: true },
+    shown: { type: Boolean, optional: true },
   }).validator(),
   run(document) {
     return Documents.upsert({ _id: document._id }, { $set: document });

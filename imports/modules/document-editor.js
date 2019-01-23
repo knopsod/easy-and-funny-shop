@@ -17,6 +17,7 @@ const handleUpsert = () => {
     title: document.querySelector('[name="title"]').value.trim(),
     year: parseInt(document.querySelector('[name="year"]').value.trim(), 10),
     body: document.querySelector('[name="body"]').value.trim(),
+    shown: document.querySelector('[name="shown"]').checked,
   };
 
   if (doc && doc._id){

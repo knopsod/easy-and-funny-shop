@@ -12,8 +12,8 @@ const handleNav = _id => browserHistory.push(`/members/${_id}`);
 const MembersList = ({ members }) => (
   members.length > 0 ? <Table>
     <tbody>
-      { members.map(({_id, title, body, userId}) => 
-        (<MemberInlineEditor key={_id} _id={_id} title={title} body={body} userId={userId} />)
+      { members.map(({_id, title, body, userId, shown}) => 
+        (<MemberInlineEditor key={_id} _id={_id} title={title} body={body} userId={userId} shown={shown} />)
       ) }
     </tbody>
   </Table> :
@@ -27,7 +27,7 @@ MembersList.propTypes = {
 export default container((props, onData) => {
   const subscription = Meteor.subscribe('members.list');
   if (subscription.ready()) {
-    const members = Members.find({ userId: Meteor.userId() }, { sort: { title: 1 } }).fetch();
+    const members = Members.find({ userId: Meteor.userId() }, { sort: { shown: -1, title: 1 } }).fetch();
     onData(null, { members });
   }
 }, MembersList);

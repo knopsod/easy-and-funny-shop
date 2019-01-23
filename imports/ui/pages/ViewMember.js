@@ -38,7 +38,12 @@ const ViewMember = ({ doc }) => {
           </ButtonGroup>
         </ButtonToolbar>
       </div>
-      { doc && doc.body }
+      <p>
+        { doc && doc.body }
+      </p>
+      <p>
+        สถานะ : { doc && doc.shown ? 'แสดง' : 'ซ่อน' }
+      </p>
     </div>
   ) : <NotFound />;
 };

@@ -57,6 +57,7 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
         </ButtonToolbar>
       </div>
       <p>{ doc && doc.body }</p>
+      <p>สถานะ : { doc && doc.shown ? 'แสดง' : 'ซ่อน' }</p>
       <small>{ doc && `สร้างโดย : ${doc.user.profile.name.first} ${doc.user.profile.name.last}, เมื่อ : ${doc.createdDate}` }</small>
       <br />
       <br />
@@ -113,18 +114,19 @@ ViewDocument.propTypes = {
 
 export default container((props, onData) => {
   const documentId = props.params._id;
+
+  Session.setDefault('soldDate', moment().toISOString(true).substring(0, 10));
+  const soldDate = Session.get('soldDate');
+
   const subscription = Meteor.subscribe('documents.view', documentId);
   const membersSubscription = Meteor.subscribe('members.list');
   const soldsSubscription = Meteor.subscribe('solds.list');
 
-  Session.setDefault('soldDate', moment().toISOString(true).substring(0, 10));
-
-  const soldDate = Session.get('soldDate');
   let sum = 0;
-  
+
   if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {
     const doc = Documents.findOne(documentId);
-    const members = Members.find({ userId: doc.userId }, { sort: { title: 1 } }).fetch();
+    const members = Members.find({ userId: doc.userId, shown: true }, { sort: { title: 1 } }).fetch();
     const solds = Solds.find({ docId: doc._id, soldDate: soldDate }, { sort: { createdAt: 1 } }).fetch();
 
     members.forEach(function(member){
@@ -134,7 +136,7 @@ export default container((props, onData) => {
     solds.forEach(function(sold) {
       sum += sold.cancelled ? 0 : sold.amount;
     });
-    
+
     onData(null, { doc, members, soldDate, sum });
   }
 }, ViewDocument);

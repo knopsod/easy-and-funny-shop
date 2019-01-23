@@ -10,9 +10,9 @@ const handleNav = _id => browserHistory.push(`/documents/${_id}`);
 
 const DocumentsList = ({ documents }) => (
   documents.length > 0 ? <ListGroup className="DocumentsList">
-    {documents.map(({ _id, title, year }) => (
+    {documents.map(({ _id, title, year, shown }) => (
       <ListGroupItem key={ _id } onClick={ () => handleNav(_id) }>
-        { `ปี : ${year}, ${title}` }
+        {`ปี : ${year}, ${title}, สถานะ : ${shown ? 'แสดง' : 'ซ่อน'}`}
       </ListGroupItem>
     ))}
   </ListGroup> :
