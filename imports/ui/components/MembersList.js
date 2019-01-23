@@ -25,7 +25,7 @@ MembersList.propTypes = {
 };
 
 export default container((props, onData) => {
-  const subscription = Meteor.subscribe('members.list');
+  const subscription = Meteor.subscribe('members.list', Meteor.userId());
   if (subscription.ready()) {
     const members = Members.find({ userId: Meteor.userId() }, { sort: { shown: -1, title: 1 } }).fetch();
     onData(null, { members });

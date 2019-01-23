@@ -113,30 +113,29 @@ ViewDocument.propTypes = {
 };
 
 export default container((props, onData) => {
-  const documentId = props.params._id;
+  const docId = props.params._id;
 
   Session.setDefault('soldDate', moment().toISOString(true).substring(0, 10));
   const soldDate = Session.get('soldDate');
 
-  const subscription = Meteor.subscribe('documents.view', documentId);
-  const membersSubscription = Meteor.subscribe('members.list');
-  const soldsSubscription = Meteor.subscribe('solds.list');
-
+  const subscription = Meteor.subscribe('documents.view', docId);
+  const membersSubscription = Meteor.subscribe('members.list', Meteor.userId());
+  const soldsSubscription = Meteor.subscribe('solds.list', docId, soldDate);
+  
   let sum = 0;
-
+  
   if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {
-    const doc = Documents.findOne(documentId);
-    const members = Members.find({ userId: doc.userId, shown: true }, { sort: { title: 1 } }).fetch();
-    const solds = Solds.find({ docId: doc._id, soldDate: soldDate }, { sort: { createdAt: 1 } }).fetch();
-
-    members.forEach(function(member){
+    const doc = Documents.findOne(docId);
+    const members = Members.find({ userId: Meteor.userId(), shown: true }, { sort: { title: 1 } }).fetch();
+    const solds = Solds.find({ docId, soldDate }, { sort: { createdAt: 1 } }).fetch();
+    
+    members.forEach(function(member) {
       member.solds = solds.filter(sold => sold.memberId === member._id);
     });
 
     solds.forEach(function(sold) {
       sum += sold.cancelled ? 0 : sold.amount;
     });
-
     onData(null, { doc, members, soldDate, sum });
   }
 }, ViewDocument);

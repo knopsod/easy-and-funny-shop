@@ -58,8 +58,6 @@ class MemberSoldItem extends Component {
       return !element.cancelled;
     });
 
-    console.log(found);
-
     const sold = {
       ...found,
       cancelled: true,
