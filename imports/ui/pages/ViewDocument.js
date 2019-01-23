@@ -119,14 +119,14 @@ export default container((props, onData) => {
   const soldDate = Session.get('soldDate');
 
   const subscription = Meteor.subscribe('documents.view', docId);
-  const membersSubscription = Meteor.subscribe('members.list', Meteor.userId());
+  const membersSubscription = Meteor.subscribe('members.document.list', docId);
   const soldsSubscription = Meteor.subscribe('solds.list', docId, soldDate);
   
   let sum = 0;
   
   if (subscription.ready() && membersSubscription.ready() && soldsSubscription.ready()) {
     const doc = Documents.findOne(docId);
-    const members = Members.find({ userId: Meteor.userId(), shown: true }, { sort: { title: 1 } }).fetch();
+    const members = Members.find({ userId: doc.userId, shown: true }, { sort: { title: 1 } }).fetch();
     const solds = Solds.find({ docId, soldDate }, { sort: { createdAt: 1 } }).fetch();
     
     members.forEach(function(member) {
