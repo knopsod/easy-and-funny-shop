@@ -76,8 +76,8 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
             return doc.userId === Meteor.userId() ?
               <MemberSoldItem key={_id} title={title} body={body} 
                 solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} /> :
-              <MemberSoldReadOnlyItem key={_id} title={title} body={body} 
-                solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} />
+              <MemberSoldReadOnlyItem key={_id} title={title} body={body}
+                solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} />;
           })}
           </tbody>
           <tfoot>

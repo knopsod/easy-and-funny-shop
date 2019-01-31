@@ -19,6 +19,7 @@ import Members from '../../ui/pages/Members';
 import NewMember from '../../ui/pages/NewMember';
 import EditMember from '../../ui/pages/EditMember.js';
 import ViewMember from '../../ui/pages/ViewMember.js';
+import ViewDocumentSumAll from '../../ui/pages/ViewDocumentSumAll.js';
 
 const authenticate = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -38,6 +39,7 @@ Meteor.startup(() => {
         <Route name="newDocument" path="/documents/new" component={ NewDocument } onEnter={ authenticate } />
         <Route name="editDocument" path="/documents/:_id/edit" component={ EditDocument } onEnter={ authenticate } />
         <Route name="viewDocument" path="/documents/:_id" component={ ViewDocument } onEnter={ authenticate } />
+        <Route name="viewDocumentSumAll" path="/documents/:_id/sumAll" component={ ViewDocumentSumAll } onEnter={ authenticate } />
 
         <Route name="members" path="/members" component={ Members } onEnter={ authenticate } />
         <Route name="newMember" path="/members/new" component={ NewMember } onEnter={ authenticate } />
