@@ -34,6 +34,10 @@ const handleRemove = (_id) => {
   }
 };
 
+const handleGotoSumAll = (_id) => {
+  browserHistory.push(`/documents/${_id}/sumAll`);
+};
+
 const saveSoldDateSession = (date) => {
   Session.set('soldDate', date);
 }
@@ -101,6 +105,12 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
         </Table> :
         <Alert bsStyle="warning">No members yet.</Alert>
       }
+      { false ? <FormGroup>
+        <Button block bsStyle="primary"
+          onClick={() => handleGotoSumAll(doc._id)}>
+          ดูยอดซื้อทั้งหมด
+        </Button>
+      </FormGroup> : undefined }
     </div>
   ) : <NotFound />;
 };
