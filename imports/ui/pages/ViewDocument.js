@@ -34,8 +34,8 @@ const handleRemove = (_id) => {
   }
 };
 
-const handleGotoSumAll = (_id) => {
-  browserHistory.push(`/documents/${_id}/sumAll`);
+const handleGotoSum = (_id) => {
+  browserHistory.push(`/documents/${_id}/sum`);
 };
 
 const saveSoldDateSession = (date) => {
@@ -93,24 +93,24 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
             }
             { doc.userId === Meteor.userId() ?
               <tr>
-                <td style={{ verticalAlign: 'middle' }}>ปี-เดือน-วัน</td>
-                <td colSpan={2} style={{ verticalAlign: 'middle' }}>{ soldDate }</td>
+                <td style={{ verticalAlign: 'middle' }}>ประจำวันที่</td>
+                <td colSpan={2} style={{ verticalAlign: 'middle' }}>{ soldDate } (ปี-เดือน-วัน)</td>
               </tr> :
               <tr>
-                <td style={{ verticalAlign: 'middle' }}>ปี-เดือน-วัน</td>
-                <td style={{ verticalAlign: 'middle' }}>{ soldDate }</td>
+                <td style={{ verticalAlign: 'middle' }}>ประจำวันที่</td>
+                <td style={{ verticalAlign: 'middle' }}>{ soldDate } (ปี-เดือน-วัน)</td>
               </tr>
             }
           </tfoot>
         </Table> :
         <Alert bsStyle="warning">No members yet.</Alert>
       }
-      { false ? <FormGroup>
+      <FormGroup>
         <Button block bsStyle="primary"
-          onClick={() => handleGotoSumAll(doc._id)}>
-          ดูยอดซื้อทั้งหมด
+          onClick={() => handleGotoSum(doc._id)}>
+          ดูยอดรวมทั้งหมด
         </Button>
-      </FormGroup> : undefined }
+      </FormGroup>
     </div>
   ) : <NotFound />;
 };

@@ -6,3 +6,6 @@ import '../../api/members/server/publications.js';
 
 import '../../api/solds/methods.js';
 import '../../api/solds/server/publications.js';
+
+import '../../api/docMemSolds/methods.js';
+import '../../api/docMemSolds/server/publications.js';

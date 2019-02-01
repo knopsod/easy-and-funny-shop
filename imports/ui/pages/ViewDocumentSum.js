@@ -9,6 +9,7 @@ import moment from 'moment';
 import DatePicker from 'react-bootstrap-date-picker';
 import Documents from '../../api/documents/documents';
 import Members from '../../api/members/members';
+import DocMemSolds from '../../api/docMemSolds/docMemSolds';
 import Solds from '../../api/solds/solds';
 import { removeDocument } from '../../api/documents/methods';
 import { upsertSold, removeSold } from '../../api/solds/methods';
@@ -21,9 +22,9 @@ const handleEdit = (_id) => {
   browserHistory.push(`/documents/${_id}/edit`);
 };
 
-const ViewDocumentSumAll = ({ doc, members, sumAll }) => {
+const ViewDocumentSum = ({ doc, members, sumAll }) => {
   return doc ? (
-    <div className="ViewDocumentSumAll">
+    <div className="ViewDocumentSum">
       <div className="page-header clearfix">
         <h4 className="pull-left">{ doc && `ปี ${doc.year} : ${doc.title}` }</h4>
         <ButtonToolbar className="pull-right">
@@ -44,17 +45,17 @@ const ViewDocumentSumAll = ({ doc, members, sumAll }) => {
       {
         members.length > 0 ? <Table>
           <tbody>
-          {members.map(({ _id, title, body }) => {
+          {members.map(({ _id, title, body, sum }) => {
             return <tr key={_id}>
               <td><h4>{`${title}. ${body}`}</h4></td>
-              <td><h4>0</h4></td>
+              <td><h4>{ sum }</h4></td>
             </tr>
           })}
           </tbody>
           <tfoot>
             <tr>
-              <td style={{ verticalAlign: 'middle' }}><h2>รวม</h2></td>
-              <td colSpan={2} style={{ verticalAlign: 'middle' }}><h2>{ sumAll } .-</h2></td>
+              <td style={{ verticalAlign: 'middle' }}><h2>รวมทั้งหมด</h2></td>
+              <td style={{ verticalAlign: 'middle' }}><h2>{ sumAll } .-</h2></td>
             </tr>
           </tfoot>
         </Table> :
@@ -64,7 +65,7 @@ const ViewDocumentSumAll = ({ doc, members, sumAll }) => {
   ) : <NotFound />;
 };
 
-ViewDocumentSumAll.propTypes = {
+ViewDocumentSum.propTypes = {
   doc: PropTypes.object,
   members: PropTypes.array,
   sumAll: PropTypes.number,
@@ -75,17 +76,22 @@ export default container((props, onData) => {
 
   const subscription = Meteor.subscribe('documents.view', docId);
   const membersSubscription = Meteor.subscribe('members.document.list', docId);
+  const docMemSoldsSubscription = Meteor.subscribe('docMemSolds.doc', docId);
   
   let sumAll = 0;
   
-  if (subscription.ready() && membersSubscription.ready()) {
+  if (subscription.ready() && membersSubscription.ready() && docMemSoldsSubscription.ready()) {
     const doc = Documents.findOne(docId);
     const members = Members.find({ userId: doc.userId, shown: true }, { sort: { title: 1 } }).fetch();
+    const docMemSolds = DocMemSolds.find({ docId }).fetch();
     
     members.forEach(function(member) {
-      member.solds = [];
+      const foundDms = docMemSolds.find(dms => dms.memberId === member._id);
+
+      member.sum = foundDms ? foundDms.sum : 0;
+      sumAll += member.sum;
     });
 
     onData(null, { doc, members, sumAll });
   }
-}, ViewDocumentSumAll);
+}, ViewDocumentSum);
