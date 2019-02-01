@@ -26,7 +26,7 @@ export const upsertSold = new ValidatedMethod({
         memberId: sold.memberId,
         sum: sold.amount,
       });
-    } else if (upserted && docMemSold) {
+    } else if (upserted && docMemSold && !sold.cancelled) {
       DocMemSolds.upsert({ 
         _id: docMemSold._id,
       }, {
@@ -34,6 +34,16 @@ export const upsertSold = new ValidatedMethod({
           docId: sold.docId,
           memberId: sold.memberId,
           sum: docMemSold.sum + sold.amount,
+        },
+      });
+    } else if (upserted && docMemSold && sold.cancelled) {
+      DocMemSolds.upsert({ 
+        _id: docMemSold._id,
+      }, {
+        $set: {
+          docId: sold.docId,
+          memberId: sold.memberId,
+          sum: docMemSold.sum - sold.amount,
         },
       });
     }
