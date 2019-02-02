@@ -8,7 +8,7 @@ const Documents = () => (
     <Row>
       <Col xs={ 12 }>
         <div className="page-header clearfix">
-          <h4 className="pull-left">รายการงานขาย</h4>
+          <h4 className="pull-left">รายชื่อร้านสหกรณ์/ร้านค้าชุมชน/ตลาดสาธิต ที่รับผิดชอบ</h4>
           <Link to="/documents/new">
             <Button
               bsStyle="success"

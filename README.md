@@ -1,3 +1,27 @@
+# EASY-AND-FUNNY-SHOP
+
+#### Prerequisite
+
+  - Node.js (npm)
+  - Meteor
+  - Heroku CLI
+
+#### Installation
+
+```sh
+$ git clone https://github.com/knopsod/easy-and-funny-shop.git
+$ cd easy-and-funny-shop
+$ npm install
+$ meteor
+```
+
+#### Example
+See [easy-and-funny-shop](http://easy-and-funny-shop.herokuapp.com)
+
+---
+
+and thank a lot
+
 # The Meteor Chef - Base
 A starting point for Meteor apps.
 

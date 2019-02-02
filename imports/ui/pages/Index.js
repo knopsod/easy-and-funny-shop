@@ -8,7 +8,7 @@ const Index = () => (
     <Row>
       <Col xs={ 12 }>
         <div className="page-header clearfix">
-          <h4 className="pull-left">ร้านค้าชุมชน</h4>
+          <h4 className="pull-left">รายชื่อร้านสหกรณ์/ร้านค้าชุมชน/ตลาดสาธิต</h4>
         </div>
         <AllDocumentsList />
       </Col>
