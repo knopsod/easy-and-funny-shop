@@ -16,7 +16,10 @@ $ meteor
 ```
 
 #### Example
-See [easy-and-funny-shop](http://easy-and-funny-shop.herokuapp.com)
+See <http://easy-and-funny-shop.herokuapp.com>
+
+#### Deployment on Heroku
+Meteor builpack horse : <https://github.com/AdmitHub/meteor-buildpack-horse>
 
 ---
 
