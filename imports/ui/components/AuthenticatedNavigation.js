@@ -21,6 +21,9 @@ const AuthenticatedNavigation = () => (
       <LinkContainer to="/members">
         <NavItem eventKey={ 4 } href="/members">สมาชิก</NavItem>
       </LinkContainer>
+      <LinkContainer to="/installation">
+        <NavItem eventKey={ 5 } href="/installation">การติดตั้ง</NavItem>
+      </LinkContainer>
     </Nav>
     <Nav pullRight>
       <NavDropdown eventKey={ 3 } title={ userName() } id="basic-nav-dropdown">
