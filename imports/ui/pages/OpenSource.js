@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Row, Col, Button } from 'react-bootstrap';
 
-const Installation = () => (
-  <div className="Installation">
+const OpenSource = () => (
+  <div className="OpenSource">
     <Row>
       <Col xs={ 12 }>
         <div className="page-header clearfix">
-          <h4 className="pull-left">การติดตั้ง</h4>
+          <h4 className="pull-left">โอเพ่นซอร์ส</h4>
         </div>
         <a href="https://github.com/knopsod/easy-and-funny-shop"
           target="_blank">
@@ -17,4 +17,4 @@ const Installation = () => (
   </div>
 );
 
-export default Installation;
+export default OpenSource;

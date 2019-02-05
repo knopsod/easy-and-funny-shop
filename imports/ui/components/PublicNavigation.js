@@ -5,8 +5,8 @@ import { Nav, NavItem } from 'react-bootstrap';
 const PublicNavigation = () => (
   <div>
     <Nav>
-      <LinkContainer to="/installation">
-        <NavItem eventKey={ 5 } href="/installation">การติดตั้ง</NavItem>
+      <LinkContainer to="/opensource">
+        <NavItem eventKey={ 5 } href="/opensource">โอเพ่นซอร์ส</NavItem>
       </LinkContainer>
     </Nav>
     <Nav pullRight>
