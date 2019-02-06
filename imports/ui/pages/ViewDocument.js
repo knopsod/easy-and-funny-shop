@@ -42,7 +42,7 @@ const saveSoldDateSession = (date) => {
   Session.set('soldDate', date);
 }
 
-const ViewDocument = ({ doc, members, soldDate, sum }) => {
+const ViewDocument = ({ doc, members, searchedMembers, soldDate, sum }) => {
   return doc ? (
     <div className="ViewDocument">
       <div className="page-header clearfix">
@@ -69,10 +69,13 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
         <DatePicker name="date" dateFormat="YYYY-MM-DD"
           onChange={date => saveSoldDateSession(date.substring(0, 10))} value={soldDate}/>
       </FormGroup>
+      <FormGroup>
+        <FormControl type="number" onChange={ event => Session.set('soldSearch', event.target.value) } />
+      </FormGroup>
       {
-        members.length > 0 ? <Table>
+        searchedMembers.length > 0 ? <Table>
           <tbody>
-          {members.map(({ _id, title, body, solds }) => {
+          {searchedMembers.map(({ _id, title, body, solds }) => {
             return doc.userId === Meteor.userId() ?
               <MemberSoldItem key={_id} title={title} body={body} 
                 solds={solds} memberId={_id} docId={doc._id} soldDate={soldDate} /> :
@@ -118,7 +121,9 @@ const ViewDocument = ({ doc, members, soldDate, sum }) => {
 ViewDocument.propTypes = {
   doc: PropTypes.object,
   members: PropTypes.array,
+  searchedMembers: PropTypes.array,
   soldDate: PropTypes.string,
+  soldSearch: PropTypes.string,
   sum: PropTypes.number,
 };
 
@@ -128,6 +133,9 @@ export default container((props, onData) => {
   Session.setDefault('soldDate', moment().toISOString(true).substring(0, 10));
   const soldDate = Session.get('soldDate');
 
+  Session.setDefault('soldSearch', '');
+  const soldSearch = Session.get('soldSearch');
+  
   const subscription = Meteor.subscribe('documents.view', docId);
   const membersSubscription = Meteor.subscribe('members.document.list', docId);
   const soldsSubscription = Meteor.subscribe('solds.list', docId, soldDate);
@@ -146,6 +154,12 @@ export default container((props, onData) => {
     solds.forEach(function(sold) {
       sum += sold.cancelled ? 0 : sold.amount;
     });
-    onData(null, { doc, members, soldDate, sum });
+
+    const searchedMembers = members.filter(element => {
+      if ( soldSearch === '' ) return true;
+      return element.title === parseInt(soldSearch, 10)
+    });
+
+    onData(null, { doc, members, searchedMembers, soldDate, soldSearch, sum });
   }
 }, ViewDocument);
