@@ -70,7 +70,9 @@ const ViewDocument = ({ doc, members, searchedMembers, soldDate, sum }) => {
           onChange={date => saveSoldDateSession(date.substring(0, 10))} value={soldDate}/>
       </FormGroup>
       <FormGroup>
-        <FormControl type="number" onChange={ event => Session.set('soldSearch', event.target.value) } />
+        <FormControl type="number"
+          placeholder="ค้นหาตามหมายเลข"
+          onChange={ event => Session.set('soldSearch', event.target.value) } />
       </FormGroup>
       {
         searchedMembers.length > 0 ? <Table>
